@@ -15,7 +15,7 @@ CREATE TABLE user_total (
   password   VARCHAR(40)        NOT NULL,
   role_id    INT                NOT NULL REFERENCES role (id),
   first_name VARCHAR(40)        NOT NULL,
-  last_name  VARCHAR(40)
+  last_name  VARCHAR(40)        NOT NULL
 );
 
 CREATE TABLE meeting (
@@ -42,28 +42,46 @@ CREATE TABLE participant (
 INSERT INTO public.role (role_name) VALUES ('admin');
 INSERT INTO public.role (role_name) VALUES ('user');
 
-INSERT INTO public.user_total (login, password, role_id, first_name, last_name) VALUES ('admin', 'admin', 1, 'Andrey', 'Selivanov');
-INSERT INTO public.user_total (login, password, role_id, first_name, last_name) VALUES ('max', 'petrov', 2, 'Maxim', 'Petrov');
-INSERT INTO public.user_total (login, password, role_id, first_name, last_name) VALUES ('dima', 'korobov', 2, 'Dmitriy', 'Korobov');
-INSERT INTO public.user_total (login, password, role_id, first_name, last_name) VALUES ('nikita', 'sheba', 2, 'Nikita', 'Shebunyaev');
-INSERT INTO public.user_total (login, password, role_id, first_name, last_name) VALUES ('alex', 'samarin', 2, 'Alexander', 'Samarin');
-INSERT INTO public.user_total (login, password, role_id, first_name, last_name) VALUES ('pasha', 'lebed', 2, 'Pavel', 'Lebed');
-INSERT INTO public.user_total (login, password, role_id, first_name, last_name) VALUES ('volodya', 'sushkov', 2, 'Vladimir', 'Sushkov');
-INSERT INTO public.user_total (login, password, role_id, first_name, last_name) VALUES ('dima2', 'topornin', 2, 'Dmitriy', 'Topornin');
-INSERT INTO public.user_total (login, password, role_id, first_name, last_name) VALUES ('vanya', 'linder', 2, 'Ivan', 'Linder');
-INSERT INTO public.user_total (login, password, role_id, first_name, last_name) VALUES ('anton', 'pavliv', 2, 'Anton', 'Pavliv');
-INSERT INTO public.user_total (login, password, role_id, first_name, last_name) VALUES ('leha', 'plate', 2, 'Alexey', 'Plate');
-INSERT INTO public.user_total (login, password, role_id, first_name, last_name) VALUES ('leha2', 'gladkiy', 2, 'Alexey', 'Gladkiy');
+INSERT INTO public.user_total (login, password, role_id, first_name, last_name)
+VALUES ('admin', 'admin', 1, 'Andrey', 'Selivanov');
+INSERT INTO public.user_total (login, password, role_id, first_name, last_name)
+VALUES ('max', 'petrov', 2, 'Maxim', 'Petrov');
+INSERT INTO public.user_total (login, password, role_id, first_name, last_name)
+VALUES ('dima', 'korobov', 2, 'Dmitriy', 'Korobov');
+INSERT INTO public.user_total (login, password, role_id, first_name, last_name)
+VALUES ('nikita', 'sheba', 2, 'Nikita', 'Shebunyaev');
+INSERT INTO public.user_total (login, password, role_id, first_name, last_name)
+VALUES ('alex', 'samarin', 2, 'Alexander', 'Samarin');
+INSERT INTO public.user_total (login, password, role_id, first_name, last_name)
+VALUES ('pasha', 'lebed', 2, 'Pavel', 'Lebed');
+INSERT INTO public.user_total (login, password, role_id, first_name, last_name)
+VALUES ('volodya', 'sushkov', 2, 'Vladimir', 'Sushkov');
+INSERT INTO public.user_total (login, password, role_id, first_name, last_name)
+VALUES ('dima2', 'topornin', 2, 'Dmitriy', 'Topornin');
+INSERT INTO public.user_total (login, password, role_id, first_name, last_name)
+VALUES ('vanya', 'linder', 2, 'Ivan', 'Linder');
+INSERT INTO public.user_total (login, password, role_id, first_name, last_name)
+VALUES ('anton', 'pavliv', 2, 'Anton', 'Pavliv');
+INSERT INTO public.user_total (login, password, role_id, first_name, last_name)
+VALUES ('leha', 'plate', 2, 'Alexey', 'Plate');
+INSERT INTO public.user_total (login, password, role_id, first_name, last_name)
+VALUES ('leha2', 'gladkiy', 2, 'Alexey', 'Gladkiy');
 
-INSERT INTO public.meeting (name, start_time, end_time, description) VALUES ('Военная кафедра', '2015-04-18 09:50:04.000000', '2015-04-18 15:44:40.000000', 'Военная кафедра в ЛЭТИ, третий этаж, 1 корпус');
-INSERT INTO public.meeting (name, start_time, end_time, description) VALUES ('Гитарный вечер', '2015-04-19 18:45:00.000000', '2015-04-18 20:00:42.000000', 'В общежитии номер восемь состоится вечер гитарной песни');
-INSERT INTO public.meeting (name, start_time, end_time, description) VALUES ('9 Мая. День Победы', '2015-05-09 00:00:00.000000', '2015-05-10 00:00:00.000000', null);
-INSERT INTO public.meeting (name, start_time, end_time, description) VALUES ('1 Мая', '2015-05-01 00:00:00.000000', '2015-05-02 00:00:00.000000', 'День Весны и Труда');
+INSERT INTO public.meeting (name, start_time, end_time, description) VALUES
+  ('Военная кафедра', '2015-04-18 09:50:04.000000', '2015-04-18 15:44:40.000000',
+   'Военная кафедра в ЛЭТИ, третий этаж, 1 корпус');
+INSERT INTO public.meeting (name, start_time, end_time, description) VALUES
+  ('Гитарный вечер', '2015-04-19 18:45:00.000000', '2015-04-18 20:00:42.000000',
+   'В общежитии номер восемь состоится вечер гитарной песни');
+INSERT INTO public.meeting (name, start_time, end_time, description)
+VALUES ('9 Мая. День Победы', '2015-05-09 00:00:00.000000', '2015-05-10 00:00:00.000000', NULL);
+INSERT INTO public.meeting (name, start_time, end_time, description)
+VALUES ('1 Мая', '2015-05-01 00:00:00.000000', '2015-05-02 00:00:00.000000', 'День Весны и Труда');
 
 INSERT INTO public.manager (meeting_id, user_id, description) VALUES (1, 6, 'Командир взвода');
 INSERT INTO public.manager (meeting_id, user_id, description) VALUES (2, 6, 'Культорг');
-INSERT INTO public.manager (meeting_id, user_id, description) VALUES (4, 1, null);
-INSERT INTO public.manager (meeting_id, user_id, description) VALUES (3, 4, null);
+INSERT INTO public.manager (meeting_id, user_id, description) VALUES (4, 1, NULL);
+INSERT INTO public.manager (meeting_id, user_id, description) VALUES (3, 4, NULL);
 INSERT INTO public.manager (meeting_id, user_id, description) VALUES (1, 11, 'Командир отделения');
 
 INSERT INTO public.participant (meeting_id, user_id) VALUES (1, 1);

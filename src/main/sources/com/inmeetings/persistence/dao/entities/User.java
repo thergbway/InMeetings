@@ -1,14 +1,47 @@
 package com.inmeetings.persistence.dao.entities;
 
-public class User {
-    private int id;
-    private int roleId;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "user_total")
+public class User implements Serializable {
+    @Id
+    @SequenceGenerator(name = "userIdSeqGenerator", allocationSize = 1, sequenceName = "user_total_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userIdSeqGenerator")
+    @Column(name = "id")
+    private int id;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id", nullable = false)
+    @NotNull
+    private Role role;
+
+    @Column(name = "login", unique = true, nullable = false, length = 40)
+    @NotNull
     private String login;
+    @Column(name = "password", nullable = false, length = 40)
+    @NotNull
     private String password;
 
+    @Column(name = "first_name", nullable = false, length = 40)
+    @NotNull
     private String firstName;
+    @Column(name = "last_name", nullable = false, length = 40)
+    @NotNull
     private String lastName;
+
+    public User() {
+
+    }
+
+    public User(Role role, String login, String password, String firstName, String lastName) {
+        this.role = role;
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public int getId() {
         return id;
@@ -18,12 +51,12 @@ public class User {
         this.id = id;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getLogin() {
@@ -56,5 +89,17 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", role=" + role +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }

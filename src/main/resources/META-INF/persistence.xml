@@ -13,7 +13,8 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/in_meetings_db"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="default"/>
-            <property name = "hibernate.show_sql" value = "true" />
+            <property name="hibernate.show_sql" value="true"/>
+            <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
             <!--<property name="eclipselink.logging.level" value="FINE"/>-->
         </properties>
     </persistence-unit>

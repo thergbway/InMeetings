@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.ArrayList;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class RoleManagerMain {
 
     public static void main(String[] args) {
         LinkedList<Role> rolesToPersist = new LinkedList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 5; i++) {
             Role role = new Role();
             role.setRoleName(i + "_roleName_" + System.currentTimeMillis());
             rolesToPersist.add(role);
@@ -22,16 +22,9 @@ public class RoleManagerMain {
         createAndStoreAllRoles(rolesToPersist);
 
         List<Role> roles = getRoles();
-        roles.forEach(r -> System.out.println(r.getId() + " -> " + r.getRoleName()));
+        roles.forEach(r -> System.out.println(r));
 
         closeAll();
-    }
-
-    private static void createAndStoreRole(Role role) {
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        em.persist(role);
-        tx.commit();
     }
 
     private static void createAndStoreAllRoles(List<Role> roles) {
@@ -42,7 +35,9 @@ public class RoleManagerMain {
     }
 
     private static List<Role> getRoles() {
-        return new ArrayList<>(0);
+        CriteriaQuery<Role> cq = em.getCriteriaBuilder().createQuery(Role.class);
+        CriteriaQuery<Role> all = cq.select(cq.from(Role.class));
+        return em.createQuery(all).getResultList();
     }
 
     private static void closeAll() {

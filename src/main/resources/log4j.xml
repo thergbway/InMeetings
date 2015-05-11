@@ -3,18 +3,18 @@
                      xmlns:log4j='http://jakarta.apache.org/log4j/'>
 
     <appender name="fileAppender" class="org.apache.log4j.FileAppender">
-        <param name="append" value="false" />
+        <param name="append" value="false"/>
         <param name="bufferedIO" value="false"/>
-        <param name="file" value="railway_company.log" />
+        <param name="file" value="railway_company.log"/>
 
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n" />
+            <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n"/>
         </layout>
     </appender>
 
     <root>
-        <level value="WARN" />
-        <appender-ref ref="fileAppender" />
+        <level value="WARN"/>
+        <appender-ref ref="fileAppender"/>
     </root>
 
 </log4j:configuration>

@@ -1,6 +1,7 @@
 package com.inmeetings.persistence.dao.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -11,8 +12,18 @@ public class Role implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roleIdSeqGenerator")
     @Column(name = "id")
     private int id;
-    @Column(name = "role_name")
+
+    @Column(name = "role_name", nullable = false, unique = true, length = 40)
+    @NotNull
     private String roleName;
+
+    public Role() {
+    }
+
+    public Role(String roleName) {
+
+        this.roleName = roleName;
+    }
 
     public int getId() {
         return id;
@@ -28,5 +39,13 @@ public class Role implements Serializable {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", roleName='" + roleName + '\'' +
+                '}';
     }
 }
