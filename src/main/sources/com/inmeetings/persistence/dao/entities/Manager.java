@@ -6,19 +6,19 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "manager")
-public class Manager implements Serializable{
+public class Manager implements Serializable {
     @Id
     @SequenceGenerator(name = "managerIdSeqGenerator", allocationSize = 1, sequenceName = "manager_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "managerIdSeqGenerator")
     @Column(name = "id")
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "meeting_id", nullable = false)
     @NotNull
     private Meeting meeting;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull
     private User user;

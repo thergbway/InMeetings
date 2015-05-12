@@ -6,7 +6,8 @@ import javax.persistence.Persistence;
 public class EntityManagerFactoryHolder {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("inmeetings-main");
 
-    private EntityManagerFactoryHolder() {}
+    private EntityManagerFactoryHolder() {
+    }
 
     public static EntityManagerFactory getEntityManagerFactory() {
         return emf;

@@ -1,17 +1,15 @@
-import com.inmeetings.persistence.dao.entities.*;
+import com.inmeetings.persistence.dao.EntityManagerFactoryHolder;
+import com.inmeetings.persistence.dao.entities.Meeting;
+import com.inmeetings.persistence.dao.entities.Participant;
+import com.inmeetings.persistence.dao.entities.Role;
+import com.inmeetings.persistence.dao.entities.User;
+import com.inmeetings.persistence.dao.implementations.ParticipantDAOImpl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaQuery;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ParticipantManagerMain {
-    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("inmeetings-main");
-    static EntityManager em = emf.createEntityManager();
 
     public static void main(String[] args) {
         LinkedList<Participant> participantsToPersist = new LinkedList<>();
@@ -36,35 +34,12 @@ public class ParticipantManagerMain {
             participantsToPersist.add(participant);
         }
 
-        createAndStoreAllParticipants(participantsToPersist);
+        ParticipantDAOImpl participantDAO = new ParticipantDAOImpl();
+        participantsToPersist.forEach(participant -> participantDAO.create(participant));
 
-        List<Participant> participants = getParticipants();
+        List<Participant> participants = participantDAO.getAllParticipants();
         participants.forEach(p -> System.out.println(p));
 
-        closeAll();
+        EntityManagerFactoryHolder.getEntityManagerFactory().close();
     }
-
-    private static void createAndStoreAllParticipants(List<Participant> participants) {
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        participants.forEach(p -> {
-            em.persist(p.getUser().getRole());
-            em.persist(p.getUser());
-            em.persist(p.getMeeting());
-            em.persist(p);
-        });
-        tx.commit();
-    }
-
-    private static List<Participant> getParticipants() {
-        CriteriaQuery<Participant> cq = em.getCriteriaBuilder().createQuery(Participant.class);
-        CriteriaQuery<Participant> all = cq.select(cq.from(Participant.class));
-        return em.createQuery(all).getResultList();
-    }
-
-    private static void closeAll() {
-        em.close();
-        emf.close();
-    }
-
 }

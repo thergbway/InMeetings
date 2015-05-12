@@ -1,20 +1,15 @@
+import com.inmeetings.persistence.dao.EntityManagerFactoryHolder;
 import com.inmeetings.persistence.dao.entities.Manager;
 import com.inmeetings.persistence.dao.entities.Meeting;
 import com.inmeetings.persistence.dao.entities.Role;
 import com.inmeetings.persistence.dao.entities.User;
+import com.inmeetings.persistence.dao.implementations.ManagerDAOImpl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaQuery;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ManagerManagerMain {
-    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("inmeetings-main");
-    static EntityManager em = emf.createEntityManager();
 
     public static void main(String[] args) {
         LinkedList<Manager> managersToPersist = new LinkedList<>();
@@ -39,35 +34,12 @@ public class ManagerManagerMain {
             managersToPersist.add(manager);
         }
 
-        createAndStoreAllManagers(managersToPersist);
+        ManagerDAOImpl managerDAO = new ManagerDAOImpl();
+        managersToPersist.forEach(manager -> managerDAO.create(manager));
 
-        List<Manager> managers = getManagers();
+        List<Manager> managers = managerDAO.getAllManagers();
         managers.forEach(m -> System.out.println(m));
 
-        closeAll();
+        EntityManagerFactoryHolder.getEntityManagerFactory().close();
     }
-
-    private static void createAndStoreAllManagers(List<Manager> managers) {
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        managers.forEach(m -> {
-            em.persist(m.getUser().getRole());
-            em.persist(m.getUser());
-            em.persist(m.getMeeting());
-            em.persist(m);
-        });
-        tx.commit();
-    }
-
-    private static List<Manager> getManagers() {
-        CriteriaQuery<Manager> cq = em.getCriteriaBuilder().createQuery(Manager.class);
-        CriteriaQuery<Manager> all = cq.select(cq.from(Manager.class));
-        return em.createQuery(all).getResultList();
-    }
-
-    private static void closeAll() {
-        em.close();
-        emf.close();
-    }
-
 }
