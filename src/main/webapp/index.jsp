@@ -1,8 +1,3 @@
-<%@ page import="com.inmeetings.persistence.dao.entities.Role" %>
-<%@ page import="com.inmeetings.persistence.dao.implementations.RoleDAOImpl" %>
-<%@ page import="com.inmeetings.persistence.dao.interfaces.RoleDAO" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.function.Consumer" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>

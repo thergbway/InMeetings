@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
@@ -28,8 +27,8 @@ public class RoleDAOImpl implements RoleDAO, GenericDAO<Role> {
     }
 
     @Override
-    public void create(Role entity) {
-        entityManager.persist(entity);
+    public void create(Role role) {
+        entityManager.persist(role);
     }
 
     @Override
@@ -38,13 +37,13 @@ public class RoleDAOImpl implements RoleDAO, GenericDAO<Role> {
     }
 
     @Override
-    public Role update(Role entity) {
-        return entityManager.merge(entity);
+    public Role update(Role role) {
+        return entityManager.merge(role);
     }
 
     @Override
-    public void delete(Role entity) {
-        Role mergedRole = entityManager.merge(entity);
+    public void delete(Role role) {
+        Role mergedRole = entityManager.merge(role);
         entityManager.remove(mergedRole);
     }
 }

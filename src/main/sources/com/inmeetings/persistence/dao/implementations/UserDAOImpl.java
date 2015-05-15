@@ -1,30 +1,47 @@
-//package com.inmeetings.persistence.dao.implementations;
-//
-//import com.inmeetings.persistence.dao.entities.User;
-//import com.inmeetings.persistence.dao.interfaces.UserDAO;
-//import org.apache.log4j.Logger;
-//
-//import javax.persistence.EntityTransaction;
-//import javax.persistence.Query;
-//import java.util.List;
-//
-//public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
-//    private static final Logger LOG = Logger.getLogger(UserDAOImpl.class.getName());
-//    private static final String GET_ALL_USERS =
-//            "SELECT u FROM User u";
-//
-//    public UserDAOImpl() {
-//        super(User.class);
-//    }
-//
-//    @Override
-//    public List<User> getAllUsers() {
-//        Query query = entityManager.createQuery(GET_ALL_USERS);
-//        EntityTransaction tx = entityManager.getTransaction();
-//        tx.begin();
-//        List<User> users = query.getResultList();
-//        tx.commit();
-//
-//        return users;
-//    }
-//}
+package com.inmeetings.persistence.dao.implementations;
+
+import com.inmeetings.persistence.dao.entities.User;
+import com.inmeetings.persistence.dao.interfaces.GenericDAO;
+import com.inmeetings.persistence.dao.interfaces.UserDAO;
+import org.apache.log4j.Logger;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
+
+public class UserDAOImpl implements UserDAO, GenericDAO<User> {
+    @PersistenceContext(unitName = "inmeetings-main")
+    private EntityManager entityManager;
+
+    private static final Logger LOG = Logger.getLogger(UserDAOImpl.class.getName());
+    private static final String GET_ALL_USERS =
+            "SELECT u FROM User u";
+
+    @Override
+    public List<User> getAllUsers() {
+        Query query = entityManager.createQuery(GET_ALL_USERS);
+        return query.getResultList();
+    }
+
+    @Override
+    public void create(User entity) {
+        entityManager.persist(entity);
+    }
+
+    @Override
+    public User read(int key) {
+        return entityManager.find(User.class, key);
+    }
+
+    @Override
+    public User update(User user) {
+        return entityManager.merge(user);
+    }
+
+    @Override
+    public void delete(User user) {
+        User mergedUser = entityManager.merge(user);
+        entityManager.remove(mergedUser);
+    }
+}

@@ -4,6 +4,6 @@ import com.inmeetings.persistence.dao.entities.Manager;
 
 import java.util.List;
 
-public interface ManagerDAO extends GenericDAO<Manager>{
+public interface ManagerDAO extends GenericDAO<Manager> {
     List<Manager> getAllManagers();
 }
