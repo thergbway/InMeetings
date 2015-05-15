@@ -4,9 +4,9 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 
-    <persistence-unit name="inmeetings-main" transaction-type="RESOURCE_LOCAL">
+    <!--<persistence-unit name="inmeetings-main" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <!--<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
+        &lt;!&ndash;<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>&ndash;&gt;
         <class>com.inmeetings.persistence.dao.entities.Role</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
@@ -14,9 +14,15 @@
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="default"/>
             <property name="hibernate.show_sql" value="true"/>
-            <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
-            <!--<property name="eclipselink.logging.level" value="FINE"/>-->
+            &lt;!&ndash;<property name="hibernate.hbm2ddl.auto" value="create"/>&ndash;&gt;
+            &lt;!&ndash;<property name="eclipselink.logging.level" value="FINE"/>&ndash;&gt;
         </properties>
+    </persistence-unit>-->
+
+    <persistence-unit name="inmeetings-main" transaction-type="JTA">
+        <jta-data-source>java:jboss/datasources/postgres-in-meetings-ds</jta-data-source>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties/>
     </persistence-unit>
 
 </persistence>

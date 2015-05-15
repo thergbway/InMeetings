@@ -4,6 +4,6 @@ import com.inmeetings.persistence.dao.entities.User;
 
 import java.util.List;
 
-public interface UserDAO {
+public interface UserDAO extends GenericDAO<User>{
     List<User> getAllUsers();
 }

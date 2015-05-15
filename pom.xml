@@ -8,6 +8,7 @@
     <artifactId>in-meetings-artifactid</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>InMeetings</name>
+    <packaging>war</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -92,10 +93,17 @@
             <version>3.11.0.GA</version>
         </dependency>
 
+        <!--<dependency>-->
+        <!--<groupId>javax.servlet</groupId>-->
+        <!--<artifactId>servlet-api</artifactId>-->
+        <!--<version>2.5</version>-->
+        <!--</dependency>-->
+
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -121,6 +129,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -130,6 +139,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -138,6 +148,7 @@
                     <finalName>${jar.without.dependencies.name}</finalName>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -165,6 +176,30 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <version>5</version>
+                    <finalName>ejb-database-ear</finalName>
+                    <displayName>ejb-database-ear</displayName>
+                    <!--<modules>
+                        <ejbModule>
+                            <groupId>edu.javacourse</groupId>
+                            <artifactId>ejb-database-ejb</artifactId>
+                            <bundleFileName>ejb-database-ejb.jar</bundleFileName>
+                        </ejbModule>
+                        <webModule>
+                            <groupId>edu.javacourse</groupId>
+                            <artifactId>ejb-database-servlet</artifactId>
+                            <bundleFileName>ejb-database-servlet.war</bundleFileName>
+                            <contextRoot>/databaseservlet</contextRoot>
+                        </webModule>
+                    </modules>-->
+                    <generateApplicationXml>true</generateApplicationXml>
+                </configuration>
+            </plugin>
         </plugins>
 
         <sourceDirectory>${project.basedir}/src/main/sources</sourceDirectory>
@@ -176,6 +211,9 @@
                     <include>${resources.to.include}</include>
                     <include>${configuration.files.to.include}</include>
                 </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
     </build>
