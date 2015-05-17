@@ -26,7 +26,7 @@ public class ManagerDAOImpl implements GenericDAO<Manager>, ManagerDAO {
 
     @Override
     public void create(Manager manager) {
-        entityManager.persist(manager);
+        entityManager.merge(manager);
     }
 
     @Override

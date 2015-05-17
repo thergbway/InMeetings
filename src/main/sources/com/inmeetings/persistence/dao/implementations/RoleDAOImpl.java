@@ -17,18 +17,18 @@ public class RoleDAOImpl implements RoleDAO, GenericDAO<Role> {
     private EntityManager entityManager;
 
     private static final Logger LOG = Logger.getLogger(RoleDAOImpl.class.getName());
-    private static final String GET_ALL_ROLES =
-            "SELECT r FROM Role r";
+    private static final String GET_USER_ROLE =
+            "SELECT r FROM Role r WHERE r.roleName = 'user'";
 
     @Override
-    public List<Role> getAllRoles() {
-        Query query = entityManager.createQuery(GET_ALL_ROLES);
-        return query.getResultList();
+    public Role getUserRole() {
+        Query query = entityManager.createQuery(GET_USER_ROLE);
+        return ((Role) query.getSingleResult());
     }
 
     @Override
     public void create(Role role) {
-        entityManager.persist(role);
+        entityManager.merge(role);
     }
 
     @Override

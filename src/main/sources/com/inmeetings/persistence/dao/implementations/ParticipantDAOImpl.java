@@ -26,7 +26,7 @@ public class ParticipantDAOImpl implements GenericDAO<Participant>, ParticipantD
 
     @Override
     public void create(Participant participant) {
-        entityManager.persist(participant);
+        entityManager.merge(participant);
     }
 
     @Override

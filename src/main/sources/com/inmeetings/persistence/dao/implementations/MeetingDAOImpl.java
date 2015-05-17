@@ -26,7 +26,7 @@ public class MeetingDAOImpl implements GenericDAO<Meeting>, MeetingDAO {
 
     @Override
     public void create(Meeting meeting) {
-        entityManager.persist(meeting);
+        entityManager.merge(meeting);
     }
 
     @Override
