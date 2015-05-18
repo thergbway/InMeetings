@@ -1,6 +1,7 @@
 package com.inmeetings.persistence.dao.implementations;
 
 import com.inmeetings.persistence.dao.entities.Meeting;
+import com.inmeetings.persistence.dao.entities.User;
 import com.inmeetings.persistence.dao.interfaces.GenericDAO;
 import com.inmeetings.persistence.dao.interfaces.MeetingDAO;
 import org.apache.log4j.Logger;
@@ -8,6 +9,7 @@ import org.apache.log4j.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MeetingDAOImpl implements GenericDAO<Meeting>, MeetingDAO {

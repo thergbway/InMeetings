@@ -1,10 +1,10 @@
 package com.inmeetings.presentation;
 
+import com.inmeetings.business.interfaces.RoleService;
+import com.inmeetings.business.interfaces.UserService;
 import com.inmeetings.persistence.dao.entities.Role;
 import com.inmeetings.persistence.dao.entities.User;
-import com.inmeetings.persistence.dao.interfaces.RoleDAO;
-import com.inmeetings.persistence.dao.interfaces.UserDAO;
-import com.inmeetings.presentation.util.AuthUtils;
+import com.inmeetings.presentation.utils.AuthUtils;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -19,13 +19,15 @@ import java.io.PrintWriter;
 @WebServlet(name = "RegistrationCheckServlet", urlPatterns = "/registrationCheck")
 public class RegistrationCheckServlet extends HttpServlet {
     @EJB
-    private UserDAO userDAO;
+    private UserService userService;
     @EJB
-    private RoleDAO roleDAO;
+    private RoleService roleService;
+    @EJB
+    private AuthUtils authUtils;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (AuthUtils.isUserAlreadyLogged(request))
+        if (authUtils.isUserAlreadyLogged(request))
             response.sendRedirect("mainPage");
         else {
             String firstName = request.getParameter("first_name");
@@ -34,8 +36,8 @@ public class RegistrationCheckServlet extends HttpServlet {
             String password = request.getParameter("password");
 
             try {
-                Role userRole = roleDAO.getUserRole();
-                userDAO.create(new User(userRole, login, password, firstName, lastName));
+                Role userRole = roleService.getUserRole();
+                userService.create(new User(userRole, login, password, firstName, lastName));
             } catch (Exception e) {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 PrintWriter out = response.getWriter();

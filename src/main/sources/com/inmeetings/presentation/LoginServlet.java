@@ -1,7 +1,8 @@
 package com.inmeetings.presentation;
 
-import com.inmeetings.presentation.util.AuthUtils;
+import com.inmeetings.presentation.utils.AuthUtils;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +12,12 @@ import java.io.IOException;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
+    @EJB
+    private AuthUtils authUtils;
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (AuthUtils.isUserAlreadyLogged(request))
+        if (authUtils.isUserAlreadyLogged(request))
             response.sendRedirect("mainPage");
         else
             getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);

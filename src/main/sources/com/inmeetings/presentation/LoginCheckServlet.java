@@ -1,8 +1,8 @@
 package com.inmeetings.presentation;
 
+import com.inmeetings.business.interfaces.UserService;
 import com.inmeetings.persistence.dao.entities.User;
-import com.inmeetings.persistence.dao.interfaces.UserDAO;
-import com.inmeetings.presentation.util.AuthUtils;
+import com.inmeetings.presentation.utils.AuthUtils;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -19,16 +19,19 @@ import java.util.List;
 @WebServlet(name = "LoginCheckServlet", urlPatterns = "/loginCheck")
 public class LoginCheckServlet extends HttpServlet {
     @EJB
-    private UserDAO userDAO;
+    private UserService userService;
+    @EJB
+    private AuthUtils authUtils;
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (AuthUtils.isUserAlreadyLogged(request))
+        if (authUtils.isUserAlreadyLogged(request))
             response.sendRedirect("mainPage");
         else {
             String login = request.getParameter("login");
             String password = request.getParameter("password");
 
-            List<User> users = userDAO.getAllUsers();
+            List<User> users = userService.getAllUsers();
             User currUser = null;
             for (User user : users) {
                 if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
