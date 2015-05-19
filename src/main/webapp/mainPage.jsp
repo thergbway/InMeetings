@@ -6,8 +6,8 @@
 <body>
     <h3>InMeetings for ${first_name} ${last_name}</h3>
     <a href="meetingsAll">Meetings</a><br>
-    <a href="404.html">Find meetings</a><br>
-    <a href="404.html">Requests</a><br>
+    <a href="meetingsForParticipating">Find meetings</a><br>
+    <a href="meetingCreate">Create new meeting</a><br>
     <a href="logout">Log out</a><br>
 </body>
 </html>

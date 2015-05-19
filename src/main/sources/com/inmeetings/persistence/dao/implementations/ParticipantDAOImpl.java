@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -26,6 +26,8 @@ public class ParticipantDAOImpl implements GenericDAO<Participant>, ParticipantD
             "SELECT p.meeting FROM Participant p WHERE p.user = :user";
     private static final String GET_PARTICIPANTS_OF_MEETING =
             "SELECT p FROM Participant p WHERE p.meeting = :meeting";
+    private static final String GET_PARTICIPANT_BY_MEETING_AND_USER =
+            "SELECT p FROM Participant p WHERE p.user = :user AND p.meeting = :meeting";
 
     @Override
     public List<Participant> getAllParticipants() {
@@ -47,6 +49,22 @@ public class ParticipantDAOImpl implements GenericDAO<Participant>, ParticipantD
         query.setParameter("meeting", meeting);
 
         return query.getResultList();
+    }
+
+    @Override
+    public Participant getByMeetingAndUser(Meeting m, User u) {
+        Query query = entityManager.createQuery(GET_PARTICIPANT_BY_MEETING_AND_USER);
+        query.setParameter("user", u);
+        query.setParameter("meeting", m);
+
+        Participant participant = null;
+        try {
+            participant = (Participant) query.getSingleResult();
+        }catch (NoResultException e){
+            participant = null;
+        }
+
+        return participant;
     }
 
     @Override

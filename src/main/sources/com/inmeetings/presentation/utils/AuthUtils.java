@@ -27,6 +27,6 @@ public class AuthUtils {
         HttpSession session = request.getSession();
         String login = (String) session.getAttribute("login");
 
-        return userService.getUserByLogin(login);
+        return userService.getByLogin(login);
     }
 }

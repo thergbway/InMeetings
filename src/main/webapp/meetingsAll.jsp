@@ -8,7 +8,8 @@
 <h3>Meetings for ${first_name} ${last_name}</h3>
 
 <c:forEach var="i" items="${meetings_names}" varStatus="loop">
-    <a href="${meetings_URLs[loop.index]}">${meetings_names[loop.index]}</a><br>
+    <a href="${meetings_about_URLs[loop.index]}">${meetings_names[loop.index]}</a>
+    <a href="${meetings_leave_URLs[loop.index]}">Leave</a><br>
 </c:forEach>
 
 </body>

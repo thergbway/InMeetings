@@ -38,7 +38,7 @@ public class RegistrationCheckServlet extends HttpServlet {
 
         try {
             Role userRole = roleService.getUserRole();
-            userService.create(new User(userRole, login, password, firstName, lastName));
+            userService.save(new User(userRole, login, password, firstName, lastName));
         } catch (Exception e) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
             PrintWriter out = response.getWriter();

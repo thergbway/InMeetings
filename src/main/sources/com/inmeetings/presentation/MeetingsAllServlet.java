@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 @WebServlet(name = "MeetingsAllServlet", urlPatterns = "meetingsAll")
 public class MeetingsAllServlet extends HttpServlet {
@@ -33,14 +34,18 @@ public class MeetingsAllServlet extends HttpServlet {
         List<Meeting> meetings = meetingService.getAllMeetingsForUser(user);
 
         List<String> meetingsNames = new LinkedList<>();
-        List<String> meetingsURLs = new LinkedList<>();
+        List<String> meetingsAboutURLs = new LinkedList<>();
+        List<String> meetingsLeaveURLs = new LinkedList<>();
+
         meetings.forEach(meeting -> {
             meetingsNames.add(meeting.getName());
-            meetingsURLs.add("meetingAbout/id=" + meeting.getId());
+            meetingsAboutURLs.add("meetingAbout/id=" + meeting.getId());
+            meetingsLeaveURLs.add("meetingLeave/meetingId=" + meeting.getId() + "/userId=" + user.getId());
         });
 
         request.setAttribute("meetings_names", meetingsNames);
-        request.setAttribute("meetings_URLs", meetingsURLs);
+        request.setAttribute("meetings_about_URLs", meetingsAboutURLs);
+        request.setAttribute("meetings_leave_URLs", meetingsLeaveURLs);
         request.setAttribute("first_name", user.getFirstName());
         request.setAttribute("last_name", user.getLastName());
 

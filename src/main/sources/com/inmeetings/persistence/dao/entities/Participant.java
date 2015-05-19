@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @Table(name = "participant")
 public class Participant implements Serializable {
@@ -13,12 +15,12 @@ public class Participant implements Serializable {
     @Column(name = "id")
     private int id;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = {PERSIST,DETACH, REFRESH, MERGE})
     @JoinColumn(name = "meeting_id", nullable = false)
     @NotNull
     private Meeting meeting;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = {PERSIST,DETACH, REFRESH, MERGE})
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull
     private User user;
@@ -44,7 +46,7 @@ public class Participant implements Serializable {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

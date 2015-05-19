@@ -36,7 +36,7 @@ public class MeetingAboutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (!authUtils.isUserAlreadyLogged(request)) {
-            response.sendRedirect("/" + request.getContextPath() + "/index");
+            response.sendRedirect(request.getContextPath() + "/index");
             return;
         }
 
@@ -46,7 +46,7 @@ public class MeetingAboutServlet extends HttpServlet {
             String idAsStr = request.getPathInfo().split("id=")[1];
             id = Integer.parseInt(idAsStr);
         } catch (Exception e) {
-            response.sendRedirect("/" + request.getContextPath() + "/404.html");
+            response.sendRedirect(request.getContextPath() + "/404.html");
             return;
         }
 
@@ -68,7 +68,7 @@ public class MeetingAboutServlet extends HttpServlet {
         managers.forEach(manager -> {
             User user = manager.getUser();
             managersNames.add(user.getFirstName() + " " + user.getLastName());
-            managersURLs.add("userAbout/id=" + user.getId());
+            managersURLs.add(request.getContextPath() + "/userAbout/id=" + user.getId());
         });
         request.setAttribute("managers_names", managersNames);
         request.setAttribute("managers_URLs", managersURLs);
@@ -81,7 +81,7 @@ public class MeetingAboutServlet extends HttpServlet {
         participants.forEach(participant -> {
             User user = participant.getUser();
             participantsNames.add(user.getFirstName() + " " + user.getLastName());
-            participantsURLs.add("userAbout/id=" + user.getId());
+            participantsURLs.add(request.getContextPath() + "/userAbout/id=" + user.getId());
         });
         request.setAttribute("participants_names", participantsNames);
         request.setAttribute("participants_URLs", participantsURLs);

@@ -34,4 +34,24 @@ public class MeetingServiceImpl implements MeetingService {
     public Meeting getById(int id) {
         return meetingDAO.read(id);
     }
+
+    @Override
+    public void save(Meeting meeting) {
+        meetingDAO.create(meeting);
+    }
+
+    @Override
+    public List<Meeting> getMeetingsUserManaging(User u) {
+        return managerDAO.getMeetingsUserManaging(u);
+    }
+
+    @Override
+    public List<Meeting> getMeetingsUserParticipating(User u) {
+        return participantDAO.getMeetingsUserParticipating(u);
+    }
+
+    @Override
+    public List<Meeting> getMeetingsUserNotInvolved(User u) {
+        return meetingDAO.getMeetingsUserNotInvolved(u);
+    }
 }

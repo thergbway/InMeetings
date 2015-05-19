@@ -1,7 +1,5 @@
 package com.inmeetings.presentation;
 
-import com.inmeetings.business.interfaces.UserService;
-import com.inmeetings.persistence.dao.entities.User;
 import com.inmeetings.presentation.utils.AuthUtils;
 
 import javax.ejb.EJB;
@@ -12,10 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "MainPageServlet", urlPatterns = "/mainPage")
-public class MainPageServlet extends HttpServlet {
-    @EJB
-    private UserService userService;
+@WebServlet(name = "MeetingCreateServlet", urlPatterns = "/meetingCreate")
+public class MeetingCreateServlet extends HttpServlet {
     @EJB
     private AuthUtils authUtils;
 
@@ -25,10 +21,6 @@ public class MainPageServlet extends HttpServlet {
             response.sendRedirect("index");
             return;
         }
-        String login = (String) request.getSession().getAttribute("login");
-        User user = userService.getByLogin(login);
-        request.setAttribute("first_name", user.getFirstName());
-        request.setAttribute("last_name", user.getLastName());
-        getServletContext().getRequestDispatcher("/mainPage.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/meetingCreate.jsp").forward(request, response);
     }
 }
