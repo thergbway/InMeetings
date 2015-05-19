@@ -13,7 +13,8 @@ public class AuthUtils {
     @EJB
     private UserService userService;
 
-    public AuthUtils() {}
+    public AuthUtils() {
+    }
 
     public boolean isUserAlreadyLogged(HttpServletRequest request) {
         HttpSession session = request.getSession();

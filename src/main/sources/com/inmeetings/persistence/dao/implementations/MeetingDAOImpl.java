@@ -1,8 +1,6 @@
 package com.inmeetings.persistence.dao.implementations;
 
 import com.inmeetings.persistence.dao.entities.Meeting;
-import com.inmeetings.persistence.dao.entities.Participant;
-import com.inmeetings.persistence.dao.entities.User;
 import com.inmeetings.persistence.dao.interfaces.GenericDAO;
 import com.inmeetings.persistence.dao.interfaces.MeetingDAO;
 import org.apache.log4j.Logger;
@@ -11,8 +9,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.SecondaryTable;
-import java.util.LinkedList;
 import java.util.List;
 
 @Stateless

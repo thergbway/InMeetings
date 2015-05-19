@@ -8,12 +8,11 @@ import com.inmeetings.persistence.dao.interfaces.MeetingDAO;
 import com.inmeetings.persistence.dao.interfaces.ParticipantDAO;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import java.util.LinkedList;
 import java.util.List;
 
-@Stateful
+@Stateless
 public class MeetingServiceImpl implements MeetingService {
     @EJB
     private ParticipantDAO participantDAO;
@@ -32,7 +31,7 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public Meeting getById(int id){
+    public Meeting getById(int id) {
         return meetingDAO.read(id);
     }
 }

@@ -7,7 +7,6 @@ import com.inmeetings.persistence.dao.interfaces.GenericDAO;
 import com.inmeetings.persistence.dao.interfaces.ManagerDAO;
 import org.apache.log4j.Logger;
 
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,9 +14,9 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import java.util.List;
 
-@Stateful
+@Stateless
 public class ManagerDAOImpl implements GenericDAO<Manager>, ManagerDAO {
-    @PersistenceContext(unitName = "inmeetings-main", type = PersistenceContextType.EXTENDED)
+    @PersistenceContext(unitName = "inmeetings-main")
     private EntityManager entityManager;
 
     private static final Logger LOG = Logger.getLogger(ManagerDAOImpl.class.getName());
