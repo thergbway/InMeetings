@@ -10,4 +10,6 @@ public interface ManagerDAO extends GenericDAO<Manager> {
     List<Manager> getAllManagers();
 
     List<Meeting> getMeetingsUserManaging(User u);
+
+    List<Manager> getManagersOfMeeting(Meeting meeting);
 }

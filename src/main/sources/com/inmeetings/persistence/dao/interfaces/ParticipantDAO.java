@@ -10,4 +10,6 @@ public interface ParticipantDAO extends GenericDAO<Participant> {
     List<Participant> getAllParticipants();
 
     List<Meeting> getMeetingsUserParticipating(User u);
+
+    List<Participant> getParticipantsOfMeeting(Meeting meeting);
 }

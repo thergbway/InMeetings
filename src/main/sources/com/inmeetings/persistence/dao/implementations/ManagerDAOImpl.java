@@ -7,22 +7,26 @@ import com.inmeetings.persistence.dao.interfaces.GenericDAO;
 import com.inmeetings.persistence.dao.interfaces.ManagerDAO;
 import org.apache.log4j.Logger;
 
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import java.util.List;
 
-@Stateless
+@Stateful
 public class ManagerDAOImpl implements GenericDAO<Manager>, ManagerDAO {
-    @PersistenceContext(unitName = "inmeetings-main")
+    @PersistenceContext(unitName = "inmeetings-main", type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
 
     private static final Logger LOG = Logger.getLogger(ManagerDAOImpl.class.getName());
     private static final String GET_ALL_MANAGERS =
             "SELECT m FROM Manager m";
-    public static final String GET_MEETINGS_USER_MANAGING =
+    private static final String GET_MEETINGS_USER_MANAGING =
             "SELECT m.meeting FROM Manager m WHERE m.user = :user";
+    private static final String GET_MANAGERS_OF_MEETING =
+            "SELECT m FROM Manager m WHERE m.meeting = :meeting";
 
     @Override
     public List<Manager> getAllManagers() {
@@ -34,6 +38,14 @@ public class ManagerDAOImpl implements GenericDAO<Manager>, ManagerDAO {
     public List<Meeting> getMeetingsUserManaging(User u) {
         Query query = entityManager.createQuery(GET_MEETINGS_USER_MANAGING);
         query.setParameter("user", u);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Manager> getManagersOfMeeting(Meeting meeting) {
+        Query query = entityManager.createQuery(GET_MANAGERS_OF_MEETING);
+        query.setParameter("meeting", meeting);
 
         return query.getResultList();
     }

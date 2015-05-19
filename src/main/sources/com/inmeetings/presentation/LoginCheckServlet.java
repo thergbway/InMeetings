@@ -25,32 +25,33 @@ public class LoginCheckServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (authUtils.isUserAlreadyLogged(request))
+        if (authUtils.isUserAlreadyLogged(request)) {
             response.sendRedirect("mainPage");
-        else {
-            String login = request.getParameter("login");
-            String password = request.getParameter("password");
+            return;
+        }
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
 
-            List<User> users = userService.getAllUsers();
-            User currUser = null;
-            for (User user : users) {
-                if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
-                    currUser = user;
-                    break;
-                }
-            }
-
-            if (currUser != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("login", login);
-
-                response.sendRedirect("mainPage");
-            } else {
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
-                PrintWriter out = response.getWriter();
-                out.println("<font color=red>Either user name or password is wrong.</font><br>");
-                rd.include(request, response);
+        List<User> users = userService.getAllUsers();
+        User currUser = null;
+        for (User user : users) {
+            if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
+                currUser = user;
+                break;
             }
         }
+
+        if (currUser != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("login", login);
+
+            response.sendRedirect("mainPage");
+        } else {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+            PrintWriter out = response.getWriter();
+            out.println("<font color=red>Either user name or password is wrong.</font><br>");
+            rd.include(request, response);
+        }
+
     }
 }

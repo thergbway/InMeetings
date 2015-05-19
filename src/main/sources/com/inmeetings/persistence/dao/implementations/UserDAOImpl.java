@@ -19,7 +19,7 @@ public class UserDAOImpl implements UserDAO, GenericDAO<User> {
     private static final Logger LOG = Logger.getLogger(UserDAOImpl.class.getName());
     private static final String GET_ALL_USERS =
             "SELECT u FROM User u";
-    public static final String GET_USER_BY_LOGIN =
+    private static final String GET_USER_BY_LOGIN =
             "SELECT u FROM User u WHERE u.login = :login";
 
     @Override

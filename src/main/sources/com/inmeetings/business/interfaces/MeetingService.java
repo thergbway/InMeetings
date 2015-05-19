@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface MeetingService {
     List<Meeting> getAllMeetingsForUser(User u);
+
+    Meeting getById(int id);
 }

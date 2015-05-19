@@ -27,26 +27,27 @@ public class RegistrationCheckServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (authUtils.isUserAlreadyLogged(request))
+        if (authUtils.isUserAlreadyLogged(request)) {
             response.sendRedirect("mainPage");
-        else {
-            String firstName = request.getParameter("first_name");
-            String lastName = request.getParameter("last_name");
-            String login = request.getParameter("login");
-            String password = request.getParameter("password");
-
-            try {
-                Role userRole = roleService.getUserRole();
-                userService.create(new User(userRole, login, password, firstName, lastName));
-            } catch (Exception e) {
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-                PrintWriter out = response.getWriter();
-                out.println("<font color=red>Registration error</font><br>");
-                rd.include(request, response);
-                return;
-            }
-
-            getServletContext().getRequestDispatcher("/registrationSuccess.jsp").forward(request, response);
+            return;
         }
+        String firstName = request.getParameter("first_name");
+        String lastName = request.getParameter("last_name");
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+
+        try {
+            Role userRole = roleService.getUserRole();
+            userService.create(new User(userRole, login, password, firstName, lastName));
+        } catch (Exception e) {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+            PrintWriter out = response.getWriter();
+            out.println("<font color=red>Registration error</font><br>");
+            rd.include(request, response);
+            return;
+        }
+
+        getServletContext().getRequestDispatcher("/registrationSuccess.jsp").forward(request, response);
+
     }
 }

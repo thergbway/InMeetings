@@ -4,19 +4,23 @@ import com.inmeetings.business.interfaces.MeetingService;
 import com.inmeetings.persistence.dao.entities.Meeting;
 import com.inmeetings.persistence.dao.entities.User;
 import com.inmeetings.persistence.dao.interfaces.ManagerDAO;
+import com.inmeetings.persistence.dao.interfaces.MeetingDAO;
 import com.inmeetings.persistence.dao.interfaces.ParticipantDAO;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import java.util.LinkedList;
 import java.util.List;
 
-@Stateless
+@Stateful
 public class MeetingServiceImpl implements MeetingService {
     @EJB
     private ParticipantDAO participantDAO;
     @EJB
     private ManagerDAO managerDAO;
+    @EJB
+    private MeetingDAO meetingDAO;
 
     @Override
     public List<Meeting> getAllMeetingsForUser(User u) {
@@ -25,5 +29,10 @@ public class MeetingServiceImpl implements MeetingService {
         meetings.addAll(managerDAO.getMeetingsUserManaging(u));
 
         return meetings;
+    }
+
+    @Override
+    public Meeting getById(int id){
+        return meetingDAO.read(id);
     }
 }

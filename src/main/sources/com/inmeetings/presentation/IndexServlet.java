@@ -17,9 +17,10 @@ public class IndexServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (authUtils.isUserAlreadyLogged(request))
+        if (authUtils.isUserAlreadyLogged(request)) {
             response.sendRedirect("mainPage");
-        else
-            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            return;
+        }
+        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }

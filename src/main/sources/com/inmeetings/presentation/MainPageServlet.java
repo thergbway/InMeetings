@@ -21,14 +21,14 @@ public class MainPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(!authUtils.isUserAlreadyLogged(request))
+        if (!authUtils.isUserAlreadyLogged(request)) {
             response.sendRedirect("index");
-        else {
-            String login = (String) request.getSession().getAttribute("login");
-            User user = userService.getUserByLogin(login);
-            request.setAttribute("first_name", user.getFirstName());
-            request.setAttribute("last_name", user.getLastName());
-            getServletContext().getRequestDispatcher("/mainPage.jsp").forward(request, response);
+            return;
         }
+        String login = (String) request.getSession().getAttribute("login");
+        User user = userService.getUserByLogin(login);
+        request.setAttribute("first_name", user.getFirstName());
+        request.setAttribute("last_name", user.getLastName());
+        getServletContext().getRequestDispatcher("/mainPage.jsp").forward(request, response);
     }
 }
