@@ -1,0 +1,10 @@
+.starter-template {
+    padding: 50px 15px;
+    text-align: justify;
+}
+
+a.disabled-link {
+    pointer-events: none; /* делаем ссылку некликабельной */
+    cursor: default;  /* устанавливаем курсор в виде стрелки */
+    color: #999; /* цвет текста для нективной ссылки */
+}

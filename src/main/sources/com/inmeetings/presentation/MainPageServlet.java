@@ -27,6 +27,7 @@ public class MainPageServlet extends HttpServlet {
         }
         String login = (String) request.getSession().getAttribute("login");
         User user = userService.getByLogin(login);
+        request.setAttribute("logged_user_id", user.getId());
         request.setAttribute("first_name", user.getFirstName());
         request.setAttribute("last_name", user.getLastName());
         getServletContext().getRequestDispatcher("/mainPage.jsp").forward(request, response);
