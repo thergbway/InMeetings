@@ -52,18 +52,69 @@
 
 <div class="container">
     <div class="starter-template">
-        <div class="panel panel-default panel-custom-color1">
-            <div class="panel-heading panel-heading-custom-color1">Participates in:</div>
-            <div class="list-group">
-                <div class="list-group-item">
-                    <div class="btn-group" role="group">
-                        <!--<a href="sgasg">srth</a>-->
-                        <button type="button" class="btn btn-default" onclick="location.href='http://www.google.com'">Гитарный вечер</button>
-                        <button type="button" class="btn btn-danger">Leave</button>
+        <form class="form-horizontal">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>New meeting</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="name">Name</label>
+                    <div class="col-md-4">
+                        <input id="name" name="name" type="text" placeholder="name" class="form-control input-md" required="">
+
                     </div>
                 </div>
-            </div>
-        </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="description">Description</label>
+                    <div class="col-md-4">
+                        <input id="description" name="description" type="text" placeholder="description" class="form-control input-md">
+
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="position_description">You position in the meeting</label>
+                    <div class="col-md-4">
+                        <input id="position_description" name="position_description" type="text" placeholder="position" class="form-control input-md">
+
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="start">Start time</label>
+                    <div class="col-md-4">
+                        <input id="start" name="start" type="text" placeholder="start time" class="form-control input-md">
+
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="end">End time</label>
+                    <div class="col-md-4">
+                        <input id="end" name="end" type="text" placeholder="end time" class="form-control input-md">
+
+                    </div>
+                </div>
+
+                <!-- Button (Double) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="resetBtn"></label>
+                    <div class="col-md-8">
+                        <input type="reset" id="resetBtn" name="resetBtn" class="btn btn-warning" value="Reset">
+                        <input type="submit" id="createBtn" name="createBtn" class="btn btn-success" value="Create">
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
     </div>
 </div>
 

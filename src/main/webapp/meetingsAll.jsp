@@ -7,7 +7,7 @@
 </head>
 <body>
 <jsp:include page="jsp_includes/navBar.jsp">
-    <jsp:param name="active_button_number" value="0"/>
+    <jsp:param name="active_button_number" value="1"/>
     <jsp:param name="is_logged" value="true"/>
     <jsp:param name="logged_user_id" value="${logged_user_id}"/>
     <jsp:param name="logged_user_first_name" value="${logged_user_first_name}"/>

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -96,9 +97,20 @@ public class MeetingAboutServlet extends HttpServlet {
     }
 
     private void setMeetingAttributes(HttpServletRequest request, Meeting meeting) {
+        Timestamp startTime = meeting.getStartTime();
+        Timestamp endTime = meeting.getEndTime();
+
+        if (startTime != null)
+            request.setAttribute("meeting_start", timeUtils.convertToSystemDefaultDateTime(startTime));
+        else
+            request.setAttribute("meeting_start", "");
+
+        if (endTime != null)
+            request.setAttribute("meeting_end", timeUtils.convertToSystemDefaultDateTime(endTime));
+        else
+            request.setAttribute("meeting_end", "");
+
         request.setAttribute("meeting_name", meeting.getName());
         request.setAttribute("meeting_description", meeting.getDescription());
-        request.setAttribute("meeting_start", timeUtils.convertToSystemDefaultDateTime(meeting.getStartTime()));
-        request.setAttribute("meeting_end", timeUtils.convertToSystemDefaultDateTime(meeting.getEndTime()));
     }
 }

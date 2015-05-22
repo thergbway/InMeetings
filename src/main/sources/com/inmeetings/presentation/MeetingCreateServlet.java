@@ -1,5 +1,6 @@
 package com.inmeetings.presentation;
 
+import com.inmeetings.persistence.dao.entities.User;
 import com.inmeetings.presentation.utils.AuthUtils;
 
 import javax.ejb.EJB;
@@ -21,6 +22,15 @@ public class MeetingCreateServlet extends HttpServlet {
             response.sendRedirect("index");
             return;
         }
+        setLoggedUserAttributes(request);
+
         getServletContext().getRequestDispatcher("/meetingCreate.jsp").forward(request, response);
+    }
+
+    private void setLoggedUserAttributes(HttpServletRequest request) {
+        User loggedUser = authUtils.getLoggedUser(request);
+        request.setAttribute("logged_user_id", loggedUser.getId());
+        request.setAttribute("logged_user_first_name", loggedUser.getFirstName());
+        request.setAttribute("logged_user_last_name", loggedUser.getLastName());
     }
 }

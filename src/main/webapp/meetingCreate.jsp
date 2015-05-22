@@ -1,19 +1,86 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <jsp:include page="jsp_includes/headCommon.jsp"/>
     <title>Create Meeting</title>
 </head>
 <body>
-<h3>Create Meeting:</h3><br>
+<jsp:include page="jsp_includes/navBar.jsp">
+    <jsp:param name="active_button_number" value="3"/>
+    <jsp:param name="is_logged" value="true"/>
+    <jsp:param name="logged_user_id" value="${logged_user_id}"/>
+    <jsp:param name="logged_user_first_name" value="${logged_user_first_name}"/>
+    <jsp:param name="logged_user_last_name" value="${logged_user_last_name}"/>
+</jsp:include>
 
-<form action="meetingCreationCheck" method="post">
-    Name: <input type="text" name="name" accept-charset="utf-8"><br>
-    Description: <input type="text" name="description" accept-charset="utf-8"><br>
-    You position in meeting: <input type="text" name="position_description" accept-charset="utf-8"><br>
-    Start time: <input type="text" name="start" value="1434998781"><br>
-    End time: <input type="text" name="end" value="1435257981"><br>
-    <input type="submit" value="Create meeting">
-</form>
+<div class="container">
+    <div class="starter-template">
+        <form class="form-horizontal" action="meetingCreationCheck" method="post">
+            <fieldset>
 
+                <!-- Form Name -->
+                <legend><h2><b>New meeting</b></h2></legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="name">Name</label>
+                    <div class="col-md-4">
+                        <input id="name" name="name" type="text" placeholder="name" class="form-control input-md" required="">
+
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="description">Description</label>
+                    <div class="col-md-4">
+                        <input id="description" name="description" type="text" placeholder="description" class="form-control input-md">
+
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="position_description">You position in the meeting</label>
+                    <div class="col-md-4">
+                        <input id="position_description" name="position_description" type="text" placeholder="position" class="form-control input-md">
+
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="start">Start time</label>
+                    <div class="col-md-4">
+                        <input id="start" name="start" type="text" placeholder="start time" class="form-control input-md">
+
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="end">End time</label>
+                    <div class="col-md-4">
+                        <input id="end" name="end" type="text" placeholder="end time" class="form-control input-md">
+
+                    </div>
+                </div>
+
+                <!-- Button (Double) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="resetBtn"></label>
+                    <div class="col-md-8">
+                        <input type="reset" id="resetBtn" name="resetBtn" class="btn btn-warning" value="Reset">
+                        <input type="submit" id="createBtn" name="createBtn" class="btn btn-success" value="Create meeting">
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<jsp:include page="jsp_includes/footer.jsp"/>
+<jsp:include page="jsp_includes/bootstrapScripts.jsp"/>
 </body>
 </html>

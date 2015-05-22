@@ -36,16 +36,23 @@ public class MeetingCreationCheckServlet extends HttpServlet {
 
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        String start = request.getParameter("start");
-        String end = request.getParameter("end");
+        String startStr = request.getParameter("start");
+        String endStr = request.getParameter("end");
         String position_description = request.getParameter("position_description");
 
+        Timestamp start = null;
+        if (!startStr.equals(""))
+            start = new Timestamp(Long.parseLong(startStr) * 1000L);
+        Timestamp end = null;
+        if (!endStr.equals(""))
+            end = new Timestamp(Long.parseLong(endStr) * 1000L);
+
         try {
-            if(name.equals(""))
+            if (name.equals(""))
                 throw new Exception("Name must not be empty!");
 
-            Meeting meeting = new Meeting(name, new Timestamp(Long.parseLong(start)*1000L),
-                    new Timestamp(Long.parseLong(end)*1000L), description);
+            Meeting meeting = new Meeting(name, start,
+                    end, description);
             User user = authUtils.getLoggedUser(request);
             managerService.save(new Manager(meeting, user, position_description));
         } catch (Exception e) {

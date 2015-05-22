@@ -1,10 +1,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Meeting Creation Success</title>
+    <jsp:include page="jsp_includes/headCommon.jsp"/>
+    <title>Meeting creation success</title>
 </head>
+
 <body>
-    <h2>Meeting was successfully created!</h2><br>
-    <h3><a href="meetingsAll">My Meetings</a></h3>
+<jsp:include page="jsp_includes/navBar.jsp">
+    <jsp:param name="active_button_number" value="0"/>
+    <jsp:param name="is_logged" value="true"/>
+    <jsp:param name="logged_user_id" value="${logged_user_id}"/>
+    <jsp:param name="logged_user_first_name" value="${first_name}"/>
+    <jsp:param name="logged_user_last_name" value="${last_name}"/>
+</jsp:include>
+
+<div class="container">
+    <div class="starter-template">
+        <p><h2>Meeting was successfully created</h2></p>
+        <h4>Go to <a href="${pageContext.request.contextPath}/meetingsAll">My Meetings</a></h4>
+    </div>
+</div>
+
+<jsp:include page="jsp_includes/footer.jsp"/>
+<jsp:include page="jsp_includes/bootstrapScripts.jsp"/>
 </body>
 </html>
