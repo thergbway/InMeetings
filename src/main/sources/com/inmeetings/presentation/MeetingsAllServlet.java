@@ -30,26 +30,48 @@ public class MeetingsAllServlet extends HttpServlet {
             return;
         }
 
-        User user = authUtils.getLoggedUser(request);
-        List<Meeting> meetings = meetingService.getAllMeetingsForUser(user);
+        User loggedUser = authUtils.getLoggedUser(request);
+        List<Meeting> meetingsUserManaging = meetingService.getMeetingsUserManaging(loggedUser);
+        List<Meeting> meetingsUserParticipating = meetingService.getMeetingsUserParticipating(loggedUser);
 
-        List<String> meetingsNames = new LinkedList<>();
-        List<String> meetingsAboutURLs = new LinkedList<>();
-        List<String> meetingsLeaveURLs = new LinkedList<>();
-
-        meetings.forEach(meeting -> {
-            meetingsNames.add(meeting.getName());
-            meetingsAboutURLs.add("meetingAbout/id=" + meeting.getId());
-            meetingsLeaveURLs.add("meetingLeave/meetingId=" + meeting.getId() + "/userId=" + user.getId());
-        });
-
-        request.setAttribute("meetings_names", meetingsNames);
-        request.setAttribute("meetings_about_URLs", meetingsAboutURLs);
-        request.setAttribute("meetings_leave_URLs", meetingsLeaveURLs);
-        request.setAttribute("first_name", user.getFirstName());
-        request.setAttribute("last_name", user.getLastName());
+        setUserManagingMeetingsAttributes(request, loggedUser, meetingsUserManaging);
+        setUserParticipatingMeetingsAttributes(request, loggedUser, meetingsUserParticipating);
+        setLoggedUserAttributes(request, loggedUser);
 
         getServletContext().getRequestDispatcher("/meetingsAll.jsp").forward(request, response);
+    }
 
+    private void setLoggedUserAttributes(HttpServletRequest request, User loggedUser) {
+        request.setAttribute("logged_user_first_name", loggedUser.getFirstName());
+        request.setAttribute("logged_user_last_name", loggedUser.getLastName());
+        request.setAttribute("logged_user_id", loggedUser.getId());
+    }
+
+    private void setUserParticipatingMeetingsAttributes(HttpServletRequest request, User loggedUser, List<Meeting> meetingsUserParticipating) {
+        List<String> meetingsUserParticipatingNames = new LinkedList<>();
+        List<String> meetingsUserParticipatingAboutURLs = new LinkedList<>();
+        List<String> meetingsUserParticipatingLeaveURLs = new LinkedList<>();
+        meetingsUserParticipating.forEach(meeting -> {
+            meetingsUserParticipatingNames.add(meeting.getName());
+            meetingsUserParticipatingAboutURLs.add("meetingAbout/id=" + meeting.getId());
+            meetingsUserParticipatingLeaveURLs.add("meetingLeave/meetingId=" + meeting.getId() + "/userId=" + loggedUser.getId());
+        });
+        request.setAttribute("meetings_user_participating_names", meetingsUserParticipatingNames);
+        request.setAttribute("meetings_user_participating_about_URLs", meetingsUserParticipatingAboutURLs);
+        request.setAttribute("meetings_user_participating_leave_URLs", meetingsUserParticipatingLeaveURLs);
+    }
+
+    private void setUserManagingMeetingsAttributes(HttpServletRequest request, User loggedUser, List<Meeting> meetingsUserManaging) {
+        List<String> meetingsUserManagingNames = new LinkedList<>();
+        List<String> meetingsUserManagingAboutURLs = new LinkedList<>();
+        List<String> meetingsUserManagingLeaveURLs = new LinkedList<>();
+        meetingsUserManaging.forEach(meeting -> {
+            meetingsUserManagingNames.add(meeting.getName());
+            meetingsUserManagingAboutURLs.add("meetingAbout/id=" + meeting.getId());
+            meetingsUserManagingLeaveURLs.add("meetingLeave/meetingId=" + meeting.getId() + "/userId=" + loggedUser.getId());
+        });
+        request.setAttribute("meetings_user_managing_names", meetingsUserManagingNames);
+        request.setAttribute("meetings_user_managing_about_URLs", meetingsUserManagingAboutURLs);
+        request.setAttribute("meetings_user_managing_leave_URLs", meetingsUserManagingLeaveURLs);
     }
 }

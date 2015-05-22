@@ -46,10 +46,18 @@ public class UserAboutServlet extends HttpServlet {
         List<Meeting> meetingsUserManaging = meetingService.getMeetingsUserManaging(user);
 
         setUserAttributes(request, user);
+        setLoggedUserAttributes(request);
         setMeetingsUserParticipatingAttributes(request, meetingsUserParticipating);
         setMeetingsUserManagingAttributes(request, meetingsUserManaging);
 
         getServletContext().getRequestDispatcher("/userAbout.jsp").forward(request, response);
+    }
+
+    private void setLoggedUserAttributes(HttpServletRequest request) {
+        User loggedUser = authUtils.getLoggedUser(request);
+        request.setAttribute("logged_user_id", loggedUser.getId());
+        request.setAttribute("logged_user_first_name", loggedUser.getFirstName());
+        request.setAttribute("logged_user_last_name", loggedUser.getLastName());
     }
 
     private void setMeetingsUserManagingAttributes(HttpServletRequest request, List<Meeting> meetingsUserManaging) {
@@ -59,6 +67,7 @@ public class UserAboutServlet extends HttpServlet {
             meetingsManagingNames.add(meeting.getName());
             meetingsManagingURLs.add(request.getContextPath() + "/meetingAbout/id=" + meeting.getId());
         });
+        request.setAttribute("meetings_managing_count", meetingsManagingNames.size());
         request.setAttribute("meetings_managing_names", meetingsManagingNames);
         request.setAttribute("meetings_managing_URLs", meetingsManagingURLs);
     }
@@ -70,6 +79,7 @@ public class UserAboutServlet extends HttpServlet {
             meetingsParticipatingNames.add(meeting.getName());
             meetingsParticipatingURLs.add(request.getContextPath() + "/meetingAbout/id=" + meeting.getId());
         });
+        request.setAttribute("meetings_participating_count", meetingsParticipatingNames.size());
         request.setAttribute("meetings_participating_names", meetingsParticipatingNames);
         request.setAttribute("meetings_participating_URLs", meetingsParticipatingURLs);
     }

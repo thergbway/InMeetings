@@ -17,7 +17,7 @@
 
 <div class="container">
     <div class="starter-template">
-        <p align="center"><h2>Welcome to InMeetings!</h2></p>
+        <p><h2>Welcome to InMeetings!</h2></p>
         <h4>No.1 site to get involved in a big variety of the meetings world</h4>
     </div>
 </div>

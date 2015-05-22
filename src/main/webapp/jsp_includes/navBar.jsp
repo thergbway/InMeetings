@@ -10,8 +10,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="mainPage">
-                <img src="brand_logo.png" width="25" height="25" alt="InMeetings">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/mainPage">
+                <img src="${pageContext.request.contextPath}/brand_logo.png" width="25" height="25" alt="InMeetings">
             </a>
         </div>
 

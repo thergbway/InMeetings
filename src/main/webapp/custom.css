@@ -8,3 +8,35 @@ a.disabled-link {
     cursor: default;  /* устанавливаем курсор в виде стрелки */
     color: #999; /* цвет текста для нективной ссылки */
 }
+
+.panel-custom-color1 {
+    border-color: #660066
+}
+
+.panel-custom-color1 > .panel-heading-custom-color1 {
+    background-color: rgba(182, 143, 199, 0.64);
+}
+
+.panel-custom-color2 {
+    border-color: rgba(96, 136, 231, 0.78)
+}
+
+.panel-custom-color2 > .panel-heading-custom-color2 {
+    background-color: rgba(83, 202, 255, 0.30);
+}
+
+.panel-custom-color3 {
+    border-color: rgba(43, 182, 125, 0.80)
+}
+
+.panel-custom-color3 > .panel-heading-custom-color3 {
+    background-color: rgba(0, 169, 91, 0.24);
+}
+
+.panel-custom-color4 {
+    border-color: rgba(109, 182, 56, 0.80)
+}
+
+.panel-custom-color4 > .panel-heading-custom-color4 {
+    background-color: rgba(80, 169, 18, 0.24);
+}

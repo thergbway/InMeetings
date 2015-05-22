@@ -54,11 +54,19 @@ public class MeetingAboutServlet extends HttpServlet {
         List<Participant> participants = participantService.getParticipantsOfMeeting(meeting);
         List<Manager> managers = managerService.getManagersOfMeeting(meeting);
 
+        setLoggedUserAttributes(request);
         setMeetingAttributes(request, meeting);
         setManagerAttributes(request, managers);
         setParticipantAttributes(request, participants);
 
         getServletContext().getRequestDispatcher("/meetingAbout.jsp").forward(request, response);
+    }
+
+    private void setLoggedUserAttributes(HttpServletRequest request) {
+        User loggedUser = authUtils.getLoggedUser(request);
+        request.setAttribute("logged_user_id", loggedUser.getId());
+        request.setAttribute("logged_user_first_name", loggedUser.getFirstName());
+        request.setAttribute("logged_user_last_name", loggedUser.getLastName());
     }
 
     private void setManagerAttributes(HttpServletRequest request, List<Manager> managers) {

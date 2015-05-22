@@ -29,11 +29,18 @@ public class MeetingsForParticipatingServlet extends HttpServlet {
             return;
         }
 
-        User user = authUtils.getLoggedUser(request);
-        List<Meeting> meetingsUserNotInvolved = meetingService.getMeetingsUserNotInvolved(user);
+        User loggedUser = authUtils.getLoggedUser(request);
+        List<Meeting> meetingsUserNotInvolved = meetingService.getMeetingsUserNotInvolved(loggedUser);
         setMeetingsUserManagingAttributes(request, meetingsUserNotInvolved);
+        setLoggedUserAttributes(request, loggedUser);
 
         getServletContext().getRequestDispatcher("/meetingsForParticipating.jsp").forward(request, response);
+    }
+
+    private void setLoggedUserAttributes(HttpServletRequest request, User loggedUser) {
+        request.setAttribute("logged_user_first_name", loggedUser.getFirstName());
+        request.setAttribute("logged_user_last_name", loggedUser.getLastName());
+        request.setAttribute("logged_user_id", loggedUser.getId());
     }
 
     private void setMeetingsUserManagingAttributes(HttpServletRequest request, List<Meeting> meetingsUserNotInvolved) {
