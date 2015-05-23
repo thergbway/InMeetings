@@ -44,13 +44,10 @@ public class LoginCheckServlet extends HttpServlet {
         if (currUser != null) {
             HttpSession session = request.getSession();
             session.setAttribute("login", login);
-
             response.sendRedirect("mainPage");
         } else {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
-            PrintWriter out = response.getWriter();
-            out.println("<font color=red>Either user name or password is wrong.</font><br>");
-            rd.include(request, response);
+            request.setAttribute("error_message", "<font color=red>Try again! Either user name or password is wrong!</font>");
+            getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         }
 
     }

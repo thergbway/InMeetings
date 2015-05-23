@@ -40,10 +40,8 @@ public class RegistrationCheckServlet extends HttpServlet {
             Role userRole = roleService.getUserRole();
             userService.save(new User(userRole, login, password, firstName, lastName));
         } catch (Exception e) {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-            PrintWriter out = response.getWriter();
-            out.println("<font color=red>Registration error</font><br>");
-            rd.include(request, response);
+            request.setAttribute("error_message", "<font color=red> Try again! Your type is wrong!</font>");
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
             return;
         }
 

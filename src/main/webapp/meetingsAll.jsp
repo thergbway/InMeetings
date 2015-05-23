@@ -62,6 +62,6 @@
 </div>
 
 <jsp:include page="jsp_includes/footer.jsp"/>
-<jsp:include page="jsp_includes/bootstrapScripts.jsp"/>
+<jsp:include page="jsp_includes/bootstrapAndJQueryScripts.jsp"/>
 </body>
 </html>

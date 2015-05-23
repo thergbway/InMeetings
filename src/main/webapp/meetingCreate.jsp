@@ -2,6 +2,9 @@
 <html>
 <head>
     <jsp:include page="jsp_includes/headCommon.jsp"/>
+    <jsp:include page="jsp_includes/bootstrapAndJQueryScripts.jsp"/>
+    <jsp:include page="jsp_includes/momentScripts.jsp"/>
+    <jsp:include page="jsp_includes/datepickerScriptsAndCSS.jsp"/>
     <title>Create Meeting</title>
 </head>
 <body>
@@ -52,8 +55,19 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="start">Start time</label>
                     <div class="col-md-4">
-                        <input id="start" name="start" type="text" placeholder="start time" class="form-control input-md">
+                        <input id="start" name="start" type="text" placeholder="choose start time" class="form-control input-md">
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#start').datetimepicker();
+                            });
+                            function startAndEndToUnixTimestamp(){
+                                var start = document.getElementById('start').value;
+                                var end = document.getElementById('end').value;
 
+                                document.getElementById('start').value = moment(start).unix();
+                                document.getElementById('end').value = moment(end).unix();
+                            }
+                        </script>
                     </div>
                 </div>
 
@@ -61,8 +75,12 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="end">End time</label>
                     <div class="col-md-4">
-                        <input id="end" name="end" type="text" placeholder="end time" class="form-control input-md">
-
+                        <input id="end" name="end" type="text" placeholder="choose end time" class="form-control input-md">
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#end').datetimepicker();
+                            });
+                        </script>
                     </div>
                 </div>
 
@@ -71,7 +89,7 @@
                     <label class="col-md-4 control-label" for="resetBtn"></label>
                     <div class="col-md-8">
                         <input type="reset" id="resetBtn" name="resetBtn" class="btn btn-warning" value="Reset">
-                        <input type="submit" id="createBtn" name="createBtn" class="btn btn-success" value="Create meeting">
+                        <input type="submit" id="createBtn" name="createBtn" class="btn btn-success" value="Create meeting" onclick="startAndEndToUnixTimestamp()">
                     </div>
                 </div>
 
@@ -81,6 +99,5 @@
 </div>
 
 <jsp:include page="jsp_includes/footer.jsp"/>
-<jsp:include page="jsp_includes/bootstrapScripts.jsp"/>
 </body>
 </html>
