@@ -60,7 +60,7 @@ public class ParticipantDAOImpl implements GenericDAO<Participant>, ParticipantD
         Participant participant = null;
         try {
             participant = (Participant) query.getSingleResult();
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             participant = null;
         }
 

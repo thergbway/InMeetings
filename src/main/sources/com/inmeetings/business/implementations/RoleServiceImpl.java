@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class RoleServiceImpl implements RoleService {
-    @EJB
+    @EJB(beanName = "RoleDAOWithNativeSQL")
     private RoleDAO roleDAO;
 
     @Override

@@ -15,12 +15,12 @@ public class Participant implements Serializable {
     @Column(name = "id")
     private int id;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = {PERSIST,DETACH, REFRESH, MERGE})
+    @OneToOne(fetch = FetchType.EAGER, cascade = {PERSIST, DETACH, REFRESH, MERGE})
     @JoinColumn(name = "meeting_id", nullable = false)
     @NotNull
     private Meeting meeting;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = {PERSIST,DETACH, REFRESH, MERGE})
+    @OneToOne(fetch = FetchType.EAGER, cascade = {PERSIST, DETACH, REFRESH, MERGE})
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull
     private User user;

@@ -16,9 +16,9 @@ import java.util.List;
 public class MeetingServiceImpl implements MeetingService {
     @EJB
     private ParticipantDAO participantDAO;
-    @EJB
+    @EJB(beanName = "ManagerDAOWithNativeSQL")
     private ManagerDAO managerDAO;
-    @EJB
+    @EJB(beanName = "MeetingDAOWithNativeSQL")
     private MeetingDAO meetingDAO;
 
     @Override

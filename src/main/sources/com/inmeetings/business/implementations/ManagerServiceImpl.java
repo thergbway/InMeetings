@@ -12,7 +12,7 @@ import java.util.List;
 
 @Stateless
 public class ManagerServiceImpl implements ManagerService {
-    @EJB
+    @EJB(beanName = "ManagerDAOWithNativeSQL")
     private ManagerDAO managerDAO;
 
     @Override

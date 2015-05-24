@@ -45,7 +45,7 @@ public class UserDAOImpl implements UserDAO, GenericDAO<User> {
     }
 
     @Override
-    public void create(User entity){
+    public void create(User entity) {
         String sql1 = "INSERT INTO role(role_name) SELECT :role_name " +
                 "WHERE NOT EXISTS (SELECT role_name FROM role WHERE role_name = :role_name)";
         Query q1 = entityManager.createNativeQuery(sql1);

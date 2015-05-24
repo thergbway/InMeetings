@@ -1,4 +1,4 @@
-package com.inmeetings.persistence.dao.implementations.orm;
+package com.inmeetings.persistence.dao.implementations.nativeSQL;
 
 import com.inmeetings.persistence.dao.entities.Role;
 import com.inmeetings.persistence.dao.interfaces.GenericDAO;
@@ -10,19 +10,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-@Stateless(name = "RoleDAOWithORM")
+@Stateless(name = "RoleDAOWithNativeSQL")
 public class RoleDAOImpl implements RoleDAO, GenericDAO<Role> {
     @PersistenceContext(unitName = "inmeetings-main")
     private EntityManager entityManager;
 
     private static final Logger LOG = Logger.getLogger(RoleDAOImpl.class.getName());
-    private static final String GET_USER_ROLE =
-            "SELECT r FROM Role r WHERE r.roleName = 'user'";
 
     @Override
     public Role getUserRole() {
-        Query query = entityManager.createQuery(GET_USER_ROLE);
-        return ((Role) query.getSingleResult());
+        String sql = "select * from role where role_name='user'";
+        Query q1 = entityManager.createNativeQuery(sql, Role.class);
+        return (Role) q1.getSingleResult();
     }
 
     @Override

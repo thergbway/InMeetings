@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-@Stateless
+@Stateless(name = "ManagerDAOWithORM")
 public class ManagerDAOImpl implements GenericDAO<Manager>, ManagerDAO {
     @PersistenceContext(unitName = "inmeetings-main")
     private EntityManager entityManager;
