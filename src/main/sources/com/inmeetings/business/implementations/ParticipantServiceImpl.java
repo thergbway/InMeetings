@@ -12,7 +12,7 @@ import java.util.List;
 
 @Stateless
 public class ParticipantServiceImpl implements ParticipantService {
-    @EJB
+    @EJB(beanName = "ParticipantDAOWithNativeSQL")
     private ParticipantDAO participantDAO;
 
     @Override

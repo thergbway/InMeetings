@@ -14,7 +14,7 @@ import java.util.List;
 
 @Stateless
 public class MeetingServiceImpl implements MeetingService {
-    @EJB
+    @EJB(beanName = "ParticipantDAOWithNativeSQL")
     private ParticipantDAO participantDAO;
     @EJB(beanName = "ManagerDAOWithNativeSQL")
     private ManagerDAO managerDAO;
