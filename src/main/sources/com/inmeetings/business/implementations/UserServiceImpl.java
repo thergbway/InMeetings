@@ -10,7 +10,7 @@ import java.util.List;
 
 @Stateless
 public class UserServiceImpl implements UserService {
-    @EJB
+    @EJB(beanName = "UserDAOWithNativeSQL")
     private UserDAO userDAO;
 
     @Override

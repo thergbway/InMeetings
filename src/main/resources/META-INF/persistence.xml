@@ -22,7 +22,6 @@
     <persistence-unit name="inmeetings-main" transaction-type="JTA">
         <jta-data-source>java:jboss/datasources/postgres-in-meetings-ds</jta-data-source>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
-        <properties/>
     </persistence-unit>
 
 </persistence>

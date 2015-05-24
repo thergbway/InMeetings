@@ -1,18 +1,15 @@
-package com.inmeetings.persistence.dao.implementations;
+package com.inmeetings.persistence.dao.implementations.orm;
 
 import com.inmeetings.persistence.dao.entities.Meeting;
 import com.inmeetings.persistence.dao.entities.User;
 import com.inmeetings.persistence.dao.interfaces.GenericDAO;
 import com.inmeetings.persistence.dao.interfaces.MeetingDAO;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 

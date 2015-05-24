@@ -1,4 +1,4 @@
-package com.inmeetings.persistence.dao.implementations;
+package com.inmeetings.persistence.dao.implementations.orm;
 
 import com.inmeetings.persistence.dao.entities.Role;
 import com.inmeetings.persistence.dao.interfaces.GenericDAO;

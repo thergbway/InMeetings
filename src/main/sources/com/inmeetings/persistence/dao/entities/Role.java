@@ -21,7 +21,6 @@ public class Role implements Serializable {
     }
 
     public Role(String roleName) {
-
         this.roleName = roleName;
     }
 
@@ -29,7 +28,7 @@ public class Role implements Serializable {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

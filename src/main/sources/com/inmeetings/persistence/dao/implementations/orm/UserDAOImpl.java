@@ -1,4 +1,4 @@
-package com.inmeetings.persistence.dao.implementations;
+package com.inmeetings.persistence.dao.implementations.orm;
 
 import com.inmeetings.persistence.dao.entities.User;
 import com.inmeetings.persistence.dao.interfaces.GenericDAO;
@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-@Stateless
+@Stateless(name = "UserDAOWithORM")
 public class UserDAOImpl implements UserDAO, GenericDAO<User> {
     @PersistenceContext(unitName = "inmeetings-main")
     private EntityManager entityManager;
