@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS manager;
 DROP TABLE IF EXISTS meeting;
 DROP TABLE IF EXISTS user_total;
 DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS log;
 
 CREATE TABLE role (
   id        SERIAL PRIMARY KEY,
@@ -38,6 +39,79 @@ CREATE TABLE participant (
   meeting_id INT REFERENCES meeting (id),
   user_id    INT REFERENCES user_total (id)
 );
+
+CREATE TABLE log(
+  message TEXT,
+  creation_time TIMESTAMP WITHOUT TIME ZONE
+);
+
+create or replace function add_log_message_for_meetigns()
+  returns trigger as $$
+declare
+	mstr varchar(30);
+	astr varchar(100);
+	retstr varchar(254);
+begin
+	if TG_OP = 'INSERT' then
+		astr = NEW.name;
+		mstr := 'Add new meeting: ';
+		retstr := mstr || astr;
+		INSERT INTO log(message, creation_time) values (retstr, NOW());
+		return NEW;
+	elsif TG_OP = 'UPDATE' then
+		astr = NEW.name;
+		mstr := 'Update meeting: ';
+		retstr := mstr || astr;
+		INSERT INTO log(message, creation_time) values (retstr, NOW());
+		return NEW;
+	elsif TG_OP = 'DELETE' then
+		astr = OLD.name;
+		mstr := 'Remove meeting: ';
+		retstr := mstr || astr;
+		INSERT INTO log(message, creation_time) values (retstr, NOW());
+		return OLD;
+	end if;
+end;
+$$ language plpgsql;
+
+create trigger meetings_logger
+after insert or update or delete on meeting
+for each row execute procedure
+  add_log_message_for_meetigns();
+
+create or replace function add_log_message_for_users()
+  returns trigger as $$
+declare
+	mstr varchar(30);
+	astr varchar(100);
+	retstr varchar(254);
+begin
+	if TG_OP = 'INSERT' then
+		astr = NEW.login;
+		mstr := 'Add new user: ';
+		retstr := mstr || astr;
+		INSERT INTO log(message, creation_time) values (retstr, NOW());
+		return NEW;
+	elsif TG_OP = 'UPDATE' then
+		astr = NEW.login;
+		mstr := 'Update user: ';
+		retstr := mstr || astr;
+		INSERT INTO log(message, creation_time) values (retstr, NOW());
+		return NEW;
+	elsif TG_OP = 'DELETE' then
+		astr = OLD.login;
+		mstr := 'Remove user: ';
+		retstr := mstr || astr;
+		INSERT INTO log(message, creation_time) values (retstr, NOW());
+		return OLD;
+	end if;
+end;
+$$ language plpgsql;
+
+create trigger users_logger
+after insert or update or delete on user_total
+for each row execute procedure
+  add_log_message_for_users();
 
 INSERT INTO public.role (role_name) VALUES ('admin');
 INSERT INTO public.role (role_name) VALUES ('user');
