@@ -10,11 +10,13 @@ grant update on manager to proj_user;
 grant update on meeting to proj_user;
 grant update on participant to proj_user;
 grant update on user_total to proj_user;
+grant update on role to proj_user;
 
 grant insert on manager to proj_user;
 grant insert on meeting to proj_user;
 grant insert on participant to proj_user;
 grant insert on user_total to proj_user;
+grant insert on role to proj_user;
 
 grant usage, select on sequence manager_id_seq to proj_user;
 grant usage, select on sequence meeting_id_seq to proj_user;
