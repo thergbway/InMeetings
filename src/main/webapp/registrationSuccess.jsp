@@ -6,6 +6,7 @@
 </head>
 <body>
 <jsp:include page="jsp_includes/navBar.jsp">
+    <jsp:param name="active_button_number" value="0"/>
     <jsp:param name="is_logged" value="false"/>
 </jsp:include>
 <div class="container">

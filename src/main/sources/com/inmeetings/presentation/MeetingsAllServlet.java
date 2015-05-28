@@ -29,6 +29,7 @@ public class MeetingsAllServlet extends HttpServlet {
             response.sendRedirect("index");
             return;
         }
+        response.setCharacterEncoding("UTF-8");
 
         User loggedUser = authUtils.getLoggedUser(request);
         List<Meeting> meetingsUserManaging = meetingService.getMeetingsUserManaging(loggedUser);

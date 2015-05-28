@@ -3,8 +3,7 @@
 <c:if test="${param.is_logged==true}">
     <ul class="nav navbar-nav navbar-right">
         <li>
-            <a href="${pageContext.request.contextPath}/userAbout/id=${param.user_id}">${first_name} ${last_name}</a>
-            <%--<a href="${pageContext.request.contextPath}/userAbout/id=${param.user_id}">Олег Угрюмов</a>--%>
+            <a href="${pageContext.request.contextPath}/userAbout/id=${param.user_id}">${param.first_name} ${param.last_name}</a>
         </li>
         <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
     </ul>
