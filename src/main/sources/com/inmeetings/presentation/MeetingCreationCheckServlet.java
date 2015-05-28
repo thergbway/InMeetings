@@ -33,6 +33,7 @@ public class MeetingCreationCheckServlet extends HttpServlet {
             response.sendRedirect("index");
             return;
         }
+        request.setCharacterEncoding("UTF-8");
 
         String name = request.getParameter("name");
         String description = request.getParameter("description");

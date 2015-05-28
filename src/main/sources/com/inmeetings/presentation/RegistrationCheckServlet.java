@@ -31,6 +31,8 @@ public class RegistrationCheckServlet extends HttpServlet {
             response.sendRedirect("mainPage");
             return;
         }
+        request.setCharacterEncoding("UTF-8");
+
         String firstName = request.getParameter("first_name");
         String lastName = request.getParameter("last_name");
         String login = request.getParameter("login");

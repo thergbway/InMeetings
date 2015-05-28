@@ -25,6 +25,8 @@ public class MainPageServlet extends HttpServlet {
             response.sendRedirect("index");
             return;
         }
+        response.setCharacterEncoding("UTF-8");
+
         String login = (String) request.getSession().getAttribute("login");
         User user = userService.getByLogin(login);
         request.setAttribute("logged_user_id", user.getId());

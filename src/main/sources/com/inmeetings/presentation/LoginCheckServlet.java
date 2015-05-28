@@ -29,6 +29,8 @@ public class LoginCheckServlet extends HttpServlet {
             response.sendRedirect("mainPage");
             return;
         }
+        request.setCharacterEncoding("UTF-8");
+
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
